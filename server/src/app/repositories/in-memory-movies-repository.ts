@@ -2,10 +2,13 @@ import { Movie } from '../entities/movie';
 import { MoviesRepository } from './movies-repository';
 
 export class InMemoryMoviesRepository implements MoviesRepository {
-  findMany(): Promise<Movie[]> {
-    throw new Error('Method not implemented.');
+  public movies: Movie[] = [];
+
+  async findMany(): Promise<Movie[]> {
+    return this.movies;
   }
-  create(movie: Movie): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async create(movie: Movie): Promise<void> {
+    this.movies.push(movie);
   }
 }
