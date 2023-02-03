@@ -1,14 +1,27 @@
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { AppModule } from '../src/app.module';
+import { MoviesController } from '@infra/http/controllers/movies.controller';
+import { GetMovies } from '@app/use-cases/get-movies';
+import { SaveMovie } from '@app/use-cases/save-movie';
+import { MoviesRepository } from '@app/repositories/movies-repository';
+import { InMemoryMoviesRepository } from '@app/repositories/in-memory-movies-repository';
 
 describe('Movie', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [],
+      controllers: [MoviesController],
+      providers: [
+        GetMovies,
+        SaveMovie,
+        {
+          provide: MoviesRepository,
+          useClass: InMemoryMoviesRepository,
+        },
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -64,6 +77,27 @@ describe('Movie', () => {
           description: expect.any(String),
         },
       }),
+    );
+  });
+
+  it('(GET) should be able list movies summary', async () => {
+    const movieData = {
+      title: 'One piece: Z',
+      description: 'lorem ipsum lorem ipsum lorem ipsum',
+    };
+
+    await request(app.getHttpServer()).post('/movies').send(movieData);
+
+    const { body } = await request(app.getHttpServer()).get('/movies');
+
+    expect(body).toHaveProperty('movies');
+    expect(body.movies).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: expect.any(String),
+          title: expect.any(String),
+        }),
+      ]),
     );
   });
 

@@ -1,6 +1,6 @@
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { GetMovies } from '@app/use-cases/get-movies';
 import { SaveMovie } from '@app/use-cases/save-movie';
-import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateMovieBody } from '../dtos/create-movie-body';
 import { MovieViewModel } from '../view-models/movie-view-model';
 
@@ -10,7 +10,9 @@ export class MoviesController {
 
   @Get('/')
   async getAll() {
-    return {};
+    const { movies } = await this.getMovies.execute();
+
+    return { movies: movies.map(MovieViewModel.toSummaryHttp) };
   }
 
   @Post('/')
