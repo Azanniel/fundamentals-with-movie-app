@@ -1,14 +1,14 @@
-import { InMemoryMoviesRepository } from '@app/repositories/in-memory-movies-repository';
-import { MoviesRepository } from '@app/repositories/movies-repository';
 import { Module } from '@nestjs/common';
+import { MoviesRepository } from '@app/repositories/movies-repository';
+import { PrismaMoviesRepository } from './prisma/repositories/prisma-movies-repository';
+import { PrismaService } from './prisma/prisma.service';
 
 @Module({
-  imports: [],
-  controllers: [],
   providers: [
+    PrismaService,
     {
       provide: MoviesRepository,
-      useClass: InMemoryMoviesRepository,
+      useClass: PrismaMoviesRepository,
     },
   ],
   exports: [MoviesRepository],
