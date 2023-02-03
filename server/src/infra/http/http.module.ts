@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '../database/database.module';
+import { GetMovies } from '@app/use-cases/get-movies';
+import { DatabaseModule } from '@infra/database/database.module';
 import { DocumentationController } from './controllers/documentation.controller';
-import { GetMovies } from 'src/app/use-cases/get-movies';
 
 @Module({
   imports: [DatabaseModule],

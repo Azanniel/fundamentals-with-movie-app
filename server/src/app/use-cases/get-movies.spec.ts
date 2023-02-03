@@ -1,5 +1,5 @@
-import { Movie } from '../entities/movie';
-import { InMemoryMoviesRepository } from '../repositories/in-memory-movies-repository';
+import { Movie } from '@app/entities/movie';
+import { InMemoryMoviesRepository } from '@app/repositories/in-memory-movies-repository';
 import { GetMovies } from './get-movies';
 
 describe('Get all movies', () => {

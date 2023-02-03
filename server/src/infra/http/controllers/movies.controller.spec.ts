@@ -1,6 +1,6 @@
+import { GetMovies } from '@app/use-cases/get-movies';
+import { DatabaseModule } from '@infra/database/database.module';
 import { Test, TestingModule } from '@nestjs/testing';
-import { DatabaseModule } from '../../../infra/database/database.module';
-import { GetMovies } from '../../../app/use-cases/get-movies';
 import { MoviesController } from './movies.controller';
 
 describe('Movies Controller', () => {

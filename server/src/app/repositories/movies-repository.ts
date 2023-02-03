@@ -1,4 +1,4 @@
-import { Movie } from '../entities/movie';
+import { Movie } from '@app/entities/movie';
 
 export abstract class MoviesRepository {
   abstract findMany(): Promise<Movie[]>;

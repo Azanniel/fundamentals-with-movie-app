@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { Replace } from '../../helpers/replace';
+import { Replace } from '@helpers/replace';
 
 export interface MovieProps {
   title: string;

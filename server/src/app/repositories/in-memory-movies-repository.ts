@@ -1,4 +1,4 @@
-import { Movie } from '../entities/movie';
+import { Movie } from '@app/entities/movie';
 import { MoviesRepository } from './movies-repository';
 
 export class InMemoryMoviesRepository implements MoviesRepository {

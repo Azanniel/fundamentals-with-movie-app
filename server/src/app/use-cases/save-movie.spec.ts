@@ -1,4 +1,4 @@
-import { InMemoryMoviesRepository } from '../repositories/in-memory-movies-repository';
+import { InMemoryMoviesRepository } from '@app/repositories/in-memory-movies-repository';
 import { SaveMovie } from './save-movie';
 
 describe('Save movie', () => {

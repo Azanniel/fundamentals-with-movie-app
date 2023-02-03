@@ -1,6 +1,6 @@
+import { Movie } from '@app/entities/movie';
+import { MoviesRepository } from '@app/repositories/movies-repository';
 import { Injectable } from '@nestjs/common';
-import { Movie } from '../entities/movie';
-import { MoviesRepository } from '../repositories/movies-repository';
 
 interface SaveMovieRequest {
   title: string;
