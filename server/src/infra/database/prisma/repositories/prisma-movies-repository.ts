@@ -14,6 +14,20 @@ export class PrismaMoviesRepository implements MoviesRepository {
     return movies.map(PrismaMovieMapper.toDomain);
   }
 
+  async findById(movieId: string): Promise<Movie | null> {
+    const movie = await this.prisma.movie.findUnique({
+      where: {
+        id: movieId,
+      },
+    });
+
+    if (!movie) {
+      return null;
+    }
+
+    return PrismaMovieMapper.toDomain(movie);
+  }
+
   async create(movie: Movie): Promise<void> {
     const raw = PrismaMovieMapper.toPrisma(movie);
 

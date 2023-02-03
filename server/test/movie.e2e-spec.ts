@@ -6,6 +6,7 @@ import { GetMovies } from '@app/use-cases/get-movies';
 import { SaveMovie } from '@app/use-cases/save-movie';
 import { MoviesRepository } from '@app/repositories/movies-repository';
 import { InMemoryMoviesRepository } from '@app/repositories/in-memory-movies-repository';
+import { GetUniqueMovie } from '@app/use-cases/get-unique-movie';
 
 describe('Movie', () => {
   let app: INestApplication;
@@ -16,6 +17,7 @@ describe('Movie', () => {
       controllers: [MoviesController],
       providers: [
         GetMovies,
+        GetUniqueMovie,
         SaveMovie,
         {
           provide: MoviesRepository,
@@ -99,6 +101,26 @@ describe('Movie', () => {
         }),
       ]),
     );
+  });
+
+  it('/:id (GET) should be able to show details about movie', async () => {
+    const movieData = {
+      title: 'One piece: Z',
+      description: 'lorem ipsum lorem ipsum lorem ipsum',
+    };
+
+    const responseCreated = await request(app.getHttpServer())
+      .post('/movies')
+      .send(movieData);
+    const movieCreated = responseCreated.body.movie;
+
+    const responseDetails = await request(app.getHttpServer()).get(
+      `/movies/${movieCreated.id}`,
+    );
+
+    expect(responseDetails.status).toEqual(200);
+    expect(responseDetails.body).toHaveProperty('movie');
+    expect(responseDetails.body.movie).toHaveProperty('id', movieCreated.id);
   });
 
   afterAll(async () => {
