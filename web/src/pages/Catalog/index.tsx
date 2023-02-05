@@ -1,3 +1,28 @@
+import { ThumbnailMovie } from '../../components/ThumbnailMovie'
+import { CatalogContainer, MoviesList } from './styles'
+
 export function Catalog() {
-  return <h1>Hello Catalog</h1>
+  return (
+    <CatalogContainer>
+      <h2>Filmes no catálogo</h2>
+
+      <MoviesList>
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+        <ThumbnailMovie />
+      </MoviesList>
+    </CatalogContainer>
+  )
 }
