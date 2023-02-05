@@ -20,6 +20,7 @@ export const CoverContainer = styled.div`
     width: 100%;
     height: 460px;
     object-fit: cover;
+    object-position: center;
 
     filter: brightness(74%);
   }

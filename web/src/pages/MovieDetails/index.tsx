@@ -1,22 +1,44 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { MovieCatalogDTO } from '../../dtos/movie-catalog-dto'
+import { api } from '../../lib/api'
+
 import { CoverContainer, InfoContainer, MovieDetailsContainer } from './styles'
 
+type ParamsProps = {
+  id: string
+}
+
+interface MovieProps extends MovieCatalogDTO {
+  description: string
+}
+
 export function MovieDetails() {
+  const [movie, setMovie] = useState<MovieProps>({} as MovieProps)
+
+  const { id } = useParams() as ParamsProps
+
+  async function fetchDetailsMovie() {
+    const { data } = await api.get(`/movies/${id}`)
+    setMovie(data.movie)
+  }
+
+  useEffect(() => {
+    fetchDetailsMovie()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
+
   return (
     <MovieDetailsContainer>
       <CoverContainer>
-        <img src="https://picsum.photos/800/500 " alt="" />
+        <img src={`http://192.168.1.8:3000/static/${movie.cover}`} alt="" />
 
-        <p>O Melhor filme do ano</p>
+        <p>{movie.title}</p>
       </CoverContainer>
 
       <InfoContainer>
         <span>Sinopse e Info</span>
-        <span>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
-          asperiores cum nobis eos mollitia quaerat, obcaecati laboriosam
-          pariatur ducimus dignissimos. Esse dolorem eligendi a. Quod nam quasi
-          corporis unde laborum.
-        </span>
+        <span>{movie.description}</span>
       </InfoContainer>
     </MovieDetailsContainer>
   )
