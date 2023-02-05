@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const SidebarContainer = styled.aside`
@@ -28,7 +29,7 @@ export const SidebarContainer = styled.aside`
   }
 `
 
-export const MenuOption = styled.a`
+export const MenuOption = styled(NavLink)`
   width: 100%;
 
   border-radius: 8px;
@@ -45,10 +46,22 @@ export const MenuOption = styled.a`
 
   cursor: pointer;
 
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border 0.2s;
 
   &:hover {
     background: ${(props) => props.theme.orange[800]};
     color: ${(props) => props.theme.white};
+  }
+
+  &.active {
+    > span {
+      border-bottom: 1px solid ${(props) => props.theme.orange[700]};
+    }
+  }
+
+  &.active:hover {
+    > span {
+      border-bottom: 1px solid ${(props) => props.theme.white};
+    }
   }
 `

@@ -8,13 +8,13 @@ export function Sidebar() {
       <h1>C</h1>
 
       <div>
-        <MenuOption href="#">
+        <MenuOption to="/" title="Início">
           <House size={32} />
 
           <span>Início</span>
         </MenuOption>
 
-        <MenuOption href="#">
+        <MenuOption to="/new-movie" title="Adicionar filme">
           <ListPlus size={32} />
 
           <span>Adicionar</span>
