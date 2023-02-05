@@ -6,6 +6,14 @@ export const CatalogContainer = styled.div`
   }
 `
 
+export const EmptyMovieList = styled.p`
+  margin-top: 3rem;
+
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: ${(props) => props.theme.blue[100]};
+`
+
 export const MoviesList = styled.div`
   margin-top: 3rem;
 

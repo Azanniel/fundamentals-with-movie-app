@@ -1,6 +1,7 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const ThumbnailContainer = styled.button`
+export const ThumbnailContainer = styled(NavLink)`
   width: min-content;
   padding: 4px;
 
@@ -9,8 +10,7 @@ export const ThumbnailContainer = styled.button`
   align-items: flex-start;
   gap: 1.5rem;
 
-  background: transparent;
-  border: none;
+  text-decoration: none;
   color: ${(props) => props.theme.orange[700]};
 
   cursor: pointer;
@@ -38,8 +38,8 @@ export const ThumbnailContainer = styled.button`
     line-height: 0.95;
   }
 
-  &:active {
-    transform: scale(0.9);
+  &:hover {
+    transform: scale(96%);
 
     > img {
       box-shadow: 0 0 24px 1px ${(props) => props.theme.orange[700]};

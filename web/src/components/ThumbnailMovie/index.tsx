@@ -1,11 +1,19 @@
+import { MovieCatalogDTO } from '../../dtos/movie-catalog-dto'
 import { ThumbnailContainer } from './styles'
 
-export function ThumbnailMovie() {
-  return (
-    <ThumbnailContainer>
-      <img src="https://picsum.photos/200" alt="" />
+interface ThumbnailMovieProps {
+  data: MovieCatalogDTO
+}
 
-      <p>O melhor filme do ano</p>
+export function ThumbnailMovie(props: ThumbnailMovieProps) {
+  const movie = props.data
+  const urlStaticToImageMovie = 'http://localhost:3000/static'
+
+  return (
+    <ThumbnailContainer to={`/movie/${movie.id}`}>
+      <img src={`${urlStaticToImageMovie}/${movie.cover}`} alt={movie.title} />
+
+      <p>{movie.title}</p>
     </ThumbnailContainer>
   )
 }
