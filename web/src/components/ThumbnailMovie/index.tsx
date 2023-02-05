@@ -7,7 +7,7 @@ interface ThumbnailMovieProps {
 
 export function ThumbnailMovie(props: ThumbnailMovieProps) {
   const movie = props.data
-  const urlStaticToImageMovie = 'http://localhost:3000/static'
+  const urlStaticToImageMovie = 'http://192.168.1.8:3000/static'
 
   return (
     <ThumbnailContainer to={`/movie/${movie.id}`}>
