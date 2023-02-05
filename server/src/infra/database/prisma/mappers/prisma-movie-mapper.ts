@@ -7,7 +7,7 @@ export class PrismaMovieMapper {
       id: movie.id,
       title: movie.title,
       description: movie.description,
-      cover: '',
+      cover: movie.coverImage,
       createdAt: movie.createdAt,
     };
   }
@@ -17,6 +17,7 @@ export class PrismaMovieMapper {
       {
         title: raw.title,
         description: raw.description,
+        coverImage: raw.cover,
         createdAt: raw.createdAt,
       },
       raw.id,

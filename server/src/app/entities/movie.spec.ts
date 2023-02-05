@@ -6,6 +6,7 @@ describe('Movie', () => {
       title: 'One Piece: Z',
       description:
         'Luffy and his friends save a disillusioned Marine admiral who has only one goal: to kill all the pirates in the world, including the Straw Hats.',
+      coverImage: 'image-example.png',
     });
 
     expect(movie).toBeTruthy();
@@ -17,6 +18,7 @@ describe('Movie', () => {
       title: 'Everything Everywhere All at Once',
       description:
         'Evelyn Quan is a middle-aged Chinese American immigrant who runs a laundromat with her husband Waymond Wang. Two decades earlier, they eloped to the United States and had a daughter, Joy. The laundromat is being audited by the IRS, Waymond is trying to serve Evelyn divorce papers.',
+      coverImage: 'image-example.png',
       createdAt: dateToBeInserted,
     });
 
@@ -31,6 +33,7 @@ describe('Movie', () => {
       title: 'Everything Everywhere All at Once',
       description:
         'Evelyn Quan is a middle-aged Chinese American immigrant who runs a laundromat with her husband Waymond Wang. Two decades earlier, they eloped to the United States and had a daughter, Joy. The laundromat is being audited by the IRS, Waymond is trying to serve Evelyn divorce papers.',
+      coverImage: 'image-example.png',
     });
 
     expect(movie.id).toMatch(regexValidateUUID);

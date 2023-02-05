@@ -37,3 +37,4 @@ lerna-debug.log*
 # Others file
 .env
 /prisma/dev.db*
+/static

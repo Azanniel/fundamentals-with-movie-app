@@ -10,6 +10,7 @@ describe('Get all movies', () => {
     const exampleMovie = new Movie({
       title: 'example',
       description: 'example',
+      coverImage: 'example-image.png',
     });
 
     await moviesRepository.create(exampleMovie);

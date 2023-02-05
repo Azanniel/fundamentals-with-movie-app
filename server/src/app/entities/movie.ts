@@ -4,6 +4,7 @@ import { Replace } from '@helpers/replace';
 export interface MovieProps {
   title: string;
   description: string;
+  coverImage: string;
   createdAt?: Date | null;
 }
 
@@ -37,6 +38,14 @@ export class Movie {
 
   public set description(description: string) {
     this.props.description = description;
+  }
+
+  public get coverImage() {
+    return this.props.coverImage;
+  }
+
+  public set coverImage(coverImage: string) {
+    this.props.coverImage = coverImage;
   }
 
   public get createdAt(): Date {

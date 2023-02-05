@@ -1,3 +1,4 @@
+import * as fileSystem from 'node:fs/promises';
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
@@ -11,7 +12,7 @@ import { GetUniqueMovie } from '@app/use-cases/get-unique-movie';
 describe('Movie', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [],
       controllers: [MoviesController],
@@ -32,28 +33,24 @@ describe('Movie', () => {
     await app.init();
   });
 
-  it('(POST) should be able to create a movie', async () => {
-    const movieData = {
-      title: 'One piece: Z',
-      description: 'lorem ipsum lorem ipsum lorem ipsum',
-    };
-
+  it('should be able to create a movie', async () => {
     const response = await request(app.getHttpServer())
       .post('/movies')
-      .send(movieData);
+      .set('Content-Type', 'multipart/form-data')
+      .field('title', 'One Piece: Z')
+      .field('description', 'lorem ipsum lorem ipsum lorem ipsum ')
+      .attach('cover', 'test/images/test-image.jpg');
 
     expect(response.status).toEqual(201);
     expect(response.body).toHaveProperty('movie');
   });
 
-  it('(POST) should be not able to create a movie without title', async () => {
-    const movieData = {
-      description: 'lorem ipsum lorem ipsum lorem ipsum',
-    };
-
+  it('should be not able to create a movie without title', async () => {
     const response = await request(app.getHttpServer())
       .post('/movies')
-      .send(movieData);
+      .set('Content-Type', 'multipart/form-data')
+      .field('description', 'lorem ipsum lorem ipsum lorem ipsum ')
+      .attach('cover', 'test/images/test-image.jpg');
 
     expect(response.status).toEqual(400);
     expect(response.body).toHaveProperty('error');
@@ -61,15 +58,13 @@ describe('Movie', () => {
     expect(response.body.message[0]).toEqual('title should not be empty');
   });
 
-  it('(POST) should be return the structure with id, title and description', async () => {
-    const movieData = {
-      title: 'One piece: Z',
-      description: 'lorem ipsum lorem ipsum lorem ipsum',
-    };
-
+  it('should be return the structure with id, title, description and cover', async () => {
     const { body } = await request(app.getHttpServer())
       .post('/movies')
-      .send(movieData);
+      .set('Content-Type', 'multipart/form-data')
+      .field('title', 'One Piece: Z')
+      .field('description', 'lorem ipsum lorem ipsum lorem ipsum ')
+      .attach('cover', 'test/images/test-image.jpg');
 
     expect(body).toEqual(
       expect.objectContaining({
@@ -77,18 +72,19 @@ describe('Movie', () => {
           id: expect.any(String),
           title: expect.any(String),
           description: expect.any(String),
+          cover: expect.any(String),
         },
       }),
     );
   });
 
-  it('(GET) should be able list movies summary', async () => {
-    const movieData = {
-      title: 'One piece: Z',
-      description: 'lorem ipsum lorem ipsum lorem ipsum',
-    };
-
-    await request(app.getHttpServer()).post('/movies').send(movieData);
+  it('should be able list movies summary', async () => {
+    await request(app.getHttpServer())
+      .post('/movies')
+      .set('Content-Type', 'multipart/form-data')
+      .field('title', 'One Piece: Z')
+      .field('description', 'lorem ipsum lorem ipsum lorem ipsum ')
+      .attach('cover', 'test/images/test-image.jpg');
 
     const { body } = await request(app.getHttpServer()).get('/movies');
 
@@ -103,15 +99,14 @@ describe('Movie', () => {
     );
   });
 
-  it('/:id (GET) should be able to show details about movie', async () => {
-    const movieData = {
-      title: 'One piece: Z',
-      description: 'lorem ipsum lorem ipsum lorem ipsum',
-    };
-
+  it('should be able to show details about movie', async () => {
     const responseCreated = await request(app.getHttpServer())
       .post('/movies')
-      .send(movieData);
+      .set('Content-Type', 'multipart/form-data')
+      .field('title', 'One Piece: Z')
+      .field('description', 'lorem ipsum lorem ipsum lorem ipsum ')
+      .attach('cover', 'test/images/test-image.jpg');
+
     const movieCreated = responseCreated.body.movie;
 
     const responseDetails = await request(app.getHttpServer()).get(
@@ -124,6 +119,10 @@ describe('Movie', () => {
   });
 
   afterAll(async () => {
+    for (const file of await fileSystem.readdir('./static')) {
+      await fileSystem.unlink(`./static/${file}`);
+    }
+
     await app.close();
   });
 });

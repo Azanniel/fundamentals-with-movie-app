@@ -5,6 +5,7 @@ export class MovieViewModel {
     return {
       id: movie.id,
       title: movie.title,
+      cover: movie.coverImage,
     };
   }
 
@@ -13,6 +14,7 @@ export class MovieViewModel {
       id: movie.id,
       title: movie.title,
       description: movie.description,
+      cover: movie.coverImage,
     };
   }
 }

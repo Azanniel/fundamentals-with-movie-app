@@ -11,6 +11,7 @@ describe('Get all movies', () => {
       {
         title: 'example',
         description: 'example',
+        coverImage: 'example-image.png',
       },
       'example-id',
     );

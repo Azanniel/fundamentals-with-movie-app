@@ -7,8 +7,9 @@ describe('Save movie', () => {
     const saveMovie = new SaveMovie(moviesRepository);
 
     const { movie } = await saveMovie.execute({
-      title: '',
-      description: '',
+      title: 'example-title',
+      description: 'example-description',
+      coverImage: 'example-image.png',
     });
 
     expect(moviesRepository.movies).toHaveLength(1);
